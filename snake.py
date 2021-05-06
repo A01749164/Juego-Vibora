@@ -16,11 +16,11 @@ colores = ['orange', 'blue', 'black', 'purple', 'green', 'pink']
 # Se crean las variables
 colorFood = ""
 colorSnake = ""
-
 # Se hace un ciclo para evitar colores repetidos
-while (colorFood == colorSnake):
-    colorFood = choice(colores)
-    colorSnake = choice(colores)   
+colorFood = choice(colores)   
+colores.remove(colorFood)
+colorSnake = choice(colores)   
+
 
 
 def change(x, y):
@@ -42,6 +42,7 @@ def moveFood():
     Mueve la comida a un punto aleatorio en un rando de -2 a 2
     cada segundo.
     """
+    global food
     #Si la comida está dentro de la pantalla
     if(inside(food)):
         # Modifica hacia donde se movera la comida
