@@ -2,8 +2,9 @@
 # Autor: Erick Hernández Silva 
 # Autor: Jeovani Hernández Bástida
 
+# Se importan las liberias a usar 
 from turtle import *
-from random import randrange, randint
+from random import randrange, randint, choice
 from freegames import square, vector
 
 # Se crean los vectores de comida, longitud, direccion y colores
@@ -11,6 +12,15 @@ food = vector(0, 0)
 snake = [vector(10, 0)]     
 aim = vector(0, -10)    
 colores = ['orange', 'blue', 'black', 'purple', 'green', 'pink']
+
+# Se crean las variables
+colorFood = ""
+colorSnake = ""
+
+# Se hace un ciclo para evitar colores repetidos
+while (colorFood == colorSnake):
+    colorFood = choice(colores)
+    colorSnake = choice(colores)   
 
 
 def change(x, y):
@@ -26,6 +36,7 @@ def inside(head):
     """
     return -200 < head.x < 190 and -200 < head.y < 190
 
+
 def moveFood():
     """
     Mueve la comida a un punto aleatorio en un rando de -2 a 2
@@ -35,6 +46,7 @@ def moveFood():
     aimFood = vector(randint(-2,2) * 10,randint(-2,2) * 10)
     food.move(aimFood)  # Mueve la comida
     ontimer(moveFood, 1000) # Se repite cada 1000ms
+
 
 def move():
     """Mueve la serpiente hacia adelante un segmento."""
@@ -66,10 +78,10 @@ def move():
 
     #  Pinta cada cuadro de la serpiente
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, colorSnake)
 
     # Pinta la comida del color especificado
-    square(food.x, food.y, 9, 'green')
+    square(food.x, food.y, 9, colorFood)
     update()
     
     # Llama a la funcion move despues de 100ms
@@ -80,14 +92,12 @@ hideturtle()    # Esconde a la tortuga
 tracer(False)   # Apaga la animación de la tortuga al dibujar
 listen()    # Escucha el teclado en busca de inputs
 
-# Si presiona la <- cambia la dirección
+# Se definen las teclas a presionar para el movimiento de la serpiente 
 onkey(lambda: change(10, 0), 'Right')
-# Si presiona la -> cambia la dirección
 onkey(lambda: change(-10, 0), 'Left')
-# Si presiona la ^ cambia la dirección
 onkey(lambda: change(0, 10), 'Up')
-# Si presiona la v cambia la dirección
 onkey(lambda: change(0, -10), 'Down')
+
 move()  # Mueve por primera vez la serpiente
-moveFood()  # Mueve por primera vez la comiuda
-done()
+moveFood()  # Mueve por primera vez la comida
+done() 
