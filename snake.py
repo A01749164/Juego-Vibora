@@ -1,24 +1,40 @@
-"""Código modificado por:
-Erick Hernández Silva y Jeovanni Bástida
-"""
+# Código modificado por:
+# Autor: Erick Hernández Silva 
+# Autor: Jeovani Hernández Bástida
+
 from turtle import *
-from random import randrange
+from random import randrange, randint
 from freegames import square, vector
 
-food = vector(0, 0)# Donde aparece la comida
-snake = [vector(10, 0)]# Lista de la longitud de la serpiente
-aim = vector(0, -10)# Dirección inicial hacia donde se mueve la serpiente
+# Se crean los vectores de comida, longitud, direccion y colores
+food = vector(0, 0)     
+snake = [vector(10, 0)]     
+aim = vector(0, -10)    
+colores = ['orange', 'blue', 'black', 'purple', 'green', 'pink']
+
 
 def change(x, y):
     """Cambia la dirección de la serpiente."""
     aim.x = x # Modifica el valor de x del aim
     aim.y = y # Modifia el valor de y del aim
 
+
 def inside(head):
-    """Regresa True cuando la serpiente está
+    """
+    Regresa True cuando la serpiente está
     dentro de los límites de la pantalla.
     """
     return -200 < head.x < 190 and -200 < head.y < 190
+
+def moveFood():
+    """
+    Mueve la comida a un punto aleatorio en un rando de -2 a 2
+    cada segundo.
+    """
+    # Modifica hacia donde se movera la comida
+    aimFood = vector(randint(-2,2) * 10,randint(-2,2) * 10)
+    food.move(aimFood)  # Mueve la comida
+    ontimer(moveFood, 1000) # Se repite cada 1000ms
 
 def move():
     """Mueve la serpiente hacia adelante un segmento."""
@@ -51,20 +67,19 @@ def move():
     #  Pinta cada cuadro de la serpiente
     for body in snake:
         square(body.x, body.y, 9, 'black')
+
     # Pinta la comida del color especificado
     square(food.x, food.y, 9, 'green')
     update()
+    
     # Llama a la funcion move despues de 100ms
     ontimer(move, 100)
 
-# Se genera el canvas
-setup(420, 420, 370, 0)
-# Esconde a la tortuga
-hideturtle()
-# Apaga la animación de la tortuga al dibujar
-tracer(False)
-# Escucha el teclado en busca de inputs
-listen()
+setup(420, 420, 370, 0)     # Se genera el canvas
+hideturtle()    # Esconde a la tortuga
+tracer(False)   # Apaga la animación de la tortuga al dibujar
+listen()    # Escucha el teclado en busca de inputs
+
 # Si presiona la <- cambia la dirección
 onkey(lambda: change(10, 0), 'Right')
 # Si presiona la -> cambia la dirección
@@ -73,5 +88,6 @@ onkey(lambda: change(-10, 0), 'Left')
 onkey(lambda: change(0, 10), 'Up')
 # Si presiona la v cambia la dirección
 onkey(lambda: change(0, -10), 'Down')
-move()# Mueve por primera vez a la función move
+move()  # Mueve por primera vez la serpiente
+moveFood()  # Mueve por primera vez la comiuda
 done()
