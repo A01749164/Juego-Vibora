@@ -3,7 +3,7 @@
 # Autor: Jeovani Hernández Bástida
 
 from turtle import *
-from random import randrange
+from random import randrange, randint
 from freegames import square, vector
 
 # Se crean los vectores de comida, longitud, direccion y colores
@@ -26,6 +26,15 @@ def inside(head):
     """
     return -200 < head.x < 190 and -200 < head.y < 190
 
+def moveFood():
+    """
+    Mueve la comida a un punto aleatorio en un rando de -2 a 2
+    cada segundo.
+    """
+    # Modifica hacia donde se movera la comida
+    aimFood = vector(randint(-2,2) * 10,randint(-2,2) * 10)
+    food.move(aimFood)  # Mueve la comida
+    ontimer(moveFood, 1000) # Se repite cada 1000ms
 
 def move():
     """Mueve la serpiente hacia adelante un segmento."""
@@ -79,5 +88,6 @@ onkey(lambda: change(-10, 0), 'Left')
 onkey(lambda: change(0, 10), 'Up')
 # Si presiona la v cambia la dirección
 onkey(lambda: change(0, -10), 'Down')
-move()# Mueve por primera vez a la función move
+move()  # Mueve por primera vez la serpiente
+moveFood()  # Mueve por primera vez la comiuda
 done()
