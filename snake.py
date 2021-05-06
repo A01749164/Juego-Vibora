@@ -10,7 +10,7 @@ snake = [vector(10, 0)]# Lista de la longitud de la serpiente
 aim = vector(0, -10)# Dirección inicial hacia donde se mueve la serpiente
 
 def change(x, y):
-    "Camia la dirección de la serpiente."
+    """Cambia la dirección de la serpiente."""
     aim.x = x # Modifica el valor de x del aim
     aim.y = y # Modifia el valor de y del aim
 
@@ -21,7 +21,7 @@ def inside(head):
     return -200 < head.x < 190 and -200 < head.y < 190
 
 def move():
-    "Move snake forward one segment."
+    """Mueve la serpiente hacia adelante un segmento."""
     # Copia la cabeza de la lista
     head = snake[-1].copy()
     # Movemos la cabeza hacia donde estemos apuntando
