@@ -42,9 +42,14 @@ def moveFood():
     Mueve la comida a un punto aleatorio en un rando de -2 a 2
     cada segundo.
     """
-    # Modifica hacia donde se movera la comida
-    aimFood = vector(randint(-2,2) * 10,randint(-2,2) * 10)
-    food.move(aimFood)  # Mueve la comida
+    #Si la comida está dentro de la pantalla
+    if(inside(food)):
+        # Modifica hacia donde se movera la comida
+        aimFood = vector(randint(-2,2) * 10,randint(-2,2) * 10)
+        food.move(aimFood)  # Mueve la comida
+    else:
+        #Si no, la regresa al punto (0,0)
+        food = vector(0,0)
     ontimer(moveFood, 1000) # Se repite cada 1000ms
 
 
